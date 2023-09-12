@@ -34,4 +34,7 @@ RUN wget "https://dl.k8s.io/release/v1.26.3/bin/linux/amd64/kubectl"
 RUN chmod +x kubectl
 RUN mv ./kubectl /bin/kubectl
 
+RUN mkdir /root/.kube
+COPY k8s_config /root/.kube/config
+
 RUN rm -rf /var/cache/apk/*
