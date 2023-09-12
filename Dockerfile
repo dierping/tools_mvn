@@ -10,6 +10,6 @@ RUN apk add alpine-conf && \
     
 #ADD repositories /etc/apk/repositories
 RUN apk update \
-    && apk add libcurl libc-utils libnfs zip unzip net-tools pstree libevent openssl 
+    && apk add libcurl libc-utils libnfs zip unzip net-tools pstree libevent openssl git
 
 RUN cat
