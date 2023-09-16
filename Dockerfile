@@ -45,4 +45,4 @@ COPY k8s_config /root/.kube/config
     
 RUN rm -rf /var/cache/apk/*
 
-ENTRYPOINT [" for (( ; ; )) "]
+ENTRYPOINT ["while true do sleep 600 done"]
