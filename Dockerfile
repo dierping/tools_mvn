@@ -37,4 +37,8 @@ RUN mv ./kubectl /bin/kubectl
 RUN mkdir /root/.kube
 COPY k8s_config /root/.kube/config
 
+RUN apk add curl \
+    && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
+    && trivy rootfs --exit-code 1 --no-progress /
+    
 RUN rm -rf /var/cache/apk/*
