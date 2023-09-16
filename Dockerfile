@@ -27,7 +27,11 @@ RUN apk add --no-cache tzdata \
     && echo "Asia/Shanghai" > /etc/timezone
     
 #ADD repositories /etc/apk/repositories
+RUN apk update
 
+RUN apk add curl \
+    && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
+    && trivy rootfs --exit-code 1 --no-progress /
     
 
 RUN wget "https://dl.k8s.io/release/v1.26.3/bin/linux/amd64/kubectl"
@@ -37,10 +41,6 @@ RUN mv ./kubectl /bin/kubectl
 RUN mkdir /root/.kube
 COPY k8s_config /root/.kube/config
 
-RUN apk update
 
-RUN apk add curl \
-    && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
-    && trivy rootfs --exit-code 1 --no-progress /
     
 RUN rm -rf /var/cache/apk/*
