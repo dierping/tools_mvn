@@ -46,4 +46,5 @@ COPY k8s_config /root/.kube/config
     
 RUN rm -rf /var/cache/apk/*
 
-ENTRYPOINT ["sh","cat"]
+COPY run.sh /usr/local/bin
+ENTRYPOINT ["sh","run.sh"]
