@@ -33,6 +33,7 @@ RUN apk add busybox-extras \
     && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
     && trivy rootfs --exit-code 1 --no-progress /
     
+RUN ls -la
 
 RUN wget "https://dl.k8s.io/release/v1.26.3/bin/linux/amd64/kubectl"
 RUN chmod +x kubectl
@@ -45,4 +46,4 @@ COPY k8s_config /root/.kube/config
     
 RUN rm -rf /var/cache/apk/*
 
-
+ENTRYPOINT ["sh","cat"]
