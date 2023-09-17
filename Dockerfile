@@ -29,9 +29,9 @@ RUN apk add --no-cache tzdata \
 #ADD repositories /etc/apk/repositories
 RUN apk update
 
-RUN apk add busybox-extras trivy 
-  #  && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
-  #  && trivy rootfs --exit-code 1 --no-progress /
+RUN apk add busybox-extras  
+    && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
+    && trivy rootfs --exit-code 1 --no-progress /
 
 RUN trivy image  --download-db-only
     
