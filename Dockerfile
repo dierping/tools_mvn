@@ -37,8 +37,8 @@ RUN apk add busybox-extras  \
 RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
       && trivy --cache-dir $TRIVY_TEMP_DIR image --download-db-only \
       && tar -cf ./db.tar.gz -C $TRIVY_TEMP_DIR/db metadata.json trivy.db \
-      && ls -la $TRIVY_TEMP_DIR \
-      && rm -rf $TRIVY_TEMP_DIR
+      && pwd && ls -la $TRIVY_TEMP_DIR 
+  #    && rm -rf $TRIVY_TEMP_DIR
     
 COPY run.sh /usr/local/bin  
 RUN ls -la /usr/local/bin 
