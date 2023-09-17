@@ -33,7 +33,12 @@ RUN apk add busybox-extras
     && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
     && trivy rootfs --exit-code 1 --no-progress /
 
-RUN trivy image  --download-db-only
+#RUN trivy image  --download-db-only
+RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
+      && trivy --cache-dir $TRIVY_TEMP_DIR image --download-db-only \
+      && tar -cf ./db.tar.gz -C $TRIVY_TEMP_DIR/db metadata.json trivy.db \
+      && ls -la $TRIVY_TEMP_DIR
+      && rm -rf $TRIVY_TEMP_DIR
     
 COPY run.sh /usr/local/bin  
 RUN ls -la /usr/local/bin 
