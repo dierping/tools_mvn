@@ -34,8 +34,8 @@ RUN apk add busybox-extras \
     && trivy rootfs --exit-code 1 --no-progress /
 
 RUN TRIVY_TEMP_DIR=$(mktemp -d)  \
-    && trivy --cache-dir $TRIVY_TEMP_DIR image --download-java-db-only
-    && tar -cf ./javadb.tar.gz -C $TRIVY_TEMP_DIR/java-db metadata.json trivy-java.db
+    && trivy --cache-dir $TRIVY_TEMP_DIR image --download-java-db-only \
+    && tar -cf ./javadb.tar.gz -C $TRIVY_TEMP_DIR/java-db metadata.json trivy-java.db \
     && rm -rf $TRIVY_TEMP_DIR
     
 COPY run.sh /usr/local/bin  
