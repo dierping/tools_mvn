@@ -48,5 +48,8 @@ COPY k8s_config /root/.kube/config
     
 RUN rm -rf /var/cache/apk/*
 
+WORKDIR /usr/local/bin
+RUN chmod +x run.sh
+RUN chmod +x trivy
 
-ENTRYPOINT ["sh","run.sh"]
+CMD ["sh","./run.sh"]
