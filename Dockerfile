@@ -40,8 +40,8 @@ RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
       && pwd && ls -la $TRIVY_TEMP_DIR 
   #    && rm -rf $TRIVY_TEMP_DIR
 
-RUN   mkdir -p reports \
-      && trivy image --scanners vuln --format template --template "@html.tpl" -o reports/CVE_report.html slc-it-la-marketplace-uat-registry.cn-beijing.cr.aliyuncs.com/slc-it-la-webhosting/cicd_demo1:0.2
+#RUN   mkdir -p reports \
+#      && trivy image --scanners vuln --format template --template "@html.tpl" -o reports/CVE_report.html slc-it-la-marketplace-uat-registry.cn-beijing.cr.aliyuncs.com/slc-it-la-webhosting/cicd_demo1:0.2
     
 COPY run.sh /usr/local/bin  
 RUN ls -la /usr/local/bin 
