@@ -45,7 +45,7 @@ RUN apk add busybox-extras  \
 
 #------------install sonar scanner -----------#
 COPY sonar-scanner /usr/lib/sonar-scanner
-RUN ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner && chmod +x /user/local/bin/sonar-scanner
+RUN ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner && chmod +x /usr/local/bin/sonar-scanner
 ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
     
 COPY run.sh /usr/local/bin  
