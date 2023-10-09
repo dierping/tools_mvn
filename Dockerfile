@@ -44,7 +44,7 @@ RUN apk add busybox-extras  \
 #      && trivy image --scanners vuln --format template --template "@html.tpl" -o reports/CVE_report.html slc-it-la-marketplace-uat-registry.cn-beijing.cr.aliyuncs.com/slc-it-la-webhosting/cicd_demo1:0.2
 
 #------------install sonar scanner -----------#
-COPY sonar-scanner /user/lib/sonar-scanner
+COPY sonar-scanner /usr/lib/sonar-scanner
 RUN ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner && chmod +x /user/local/bin/sonar-scanner
 ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
     
