@@ -4,7 +4,7 @@ LABEL maintainer="erping.di@siemens.com"
 USER root
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN apk add --no-cache docker-cli curl openjdk8 libcurl libc-utils libnfs zip unzip net-tools pstree libevent openssl git openssh-client
+RUN apk add --no-cache docker-cli curl openjdk21 net-tools pstree git
 
 ENV TZ Asia/Shanghai
 ENV LANG=en_US.UTF-8 \
