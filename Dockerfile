@@ -34,14 +34,19 @@ RUN apk add busybox-extras  \
     && trivy rootfs --exit-code 1 --no-progress /
 
 #RUN trivy image  --download-db-only
-RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
-      && trivy --cache-dir $TRIVY_TEMP_DIR image --download-db-only \
-      && tar -cf ./db.tar.gz -C $TRIVY_TEMP_DIR/db metadata.json trivy.db \
-      && pwd && ls -la $TRIVY_TEMP_DIR 
+#RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
+#      && trivy --cache-dir $TRIVY_TEMP_DIR image --download-db-only \
+#      && tar -cf ./db.tar.gz -C $TRIVY_TEMP_DIR/db metadata.json trivy.db \
+#      && pwd && ls -la $TRIVY_TEMP_DIR 
   #    && rm -rf $TRIVY_TEMP_DIR
 
 #RUN   mkdir -p reports \
 #      && trivy image --scanners vuln --format template --template "@html.tpl" -o reports/CVE_report.html slc-it-la-marketplace-uat-registry.cn-beijing.cr.aliyuncs.com/slc-it-la-webhosting/cicd_demo1:0.2
+
+#------------install sonar scanner -----------#
+COPY sonar-scanner /user/lib/sonar-scanner
+RUN ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner && chmod +x /user/local/bin/sonar-scanner
+ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
     
 COPY run.sh /usr/local/bin  
 RUN ls -la /usr/local/bin 
