@@ -4,7 +4,7 @@ LABEL maintainer="erping.di@siemens.com"
 USER root
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN apk add --no-cache docker-cli curl openjdk17-jre-headless net-tools pstree git
+RUN apk add --no-cache docker-cli curl  net-tools pstree git
 
 ENV TZ Asia/Shanghai
 ENV LANG=en_US.UTF-8 \
@@ -26,28 +26,15 @@ RUN apk add --no-cache tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone
     
-#ADD repositories /etc/apk/repositories
+
 RUN apk update
 
 RUN apk add busybox-extras  \
     && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \
     && trivy rootfs --exit-code 1 --no-progress /
 
-#RUN trivy image  --download-db-only
-#RUN   TRIVY_TEMP_DIR=$(mktemp -d) \
-#      && trivy --cache-dir $TRIVY_TEMP_DIR image --download-db-only \
-#      && tar -cf ./db.tar.gz -C $TRIVY_TEMP_DIR/db metadata.json trivy.db \
-#      && pwd && ls -la $TRIVY_TEMP_DIR 
-  #    && rm -rf $TRIVY_TEMP_DIR
 
-#RUN   mkdir -p reports \
-#      && trivy image --scanners vuln --format template --template "@html.tpl" -o reports/CVE_report.html slc-it-la-marketplace-uat-registry.cn-beijing.cr.aliyuncs.com/slc-it-la-webhosting/cicd_demo1:0.2
-
-#------------install sonar scanner -----------#
-COPY sonar-scanner /usr/lib/sonar-scanner
-RUN ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner && chmod +x /usr/local/bin/sonar-scanner
-ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
-    
+   
 COPY run.sh /usr/local/bin  
 RUN ls -la /usr/local/bin 
 
@@ -58,8 +45,7 @@ RUN mv ./kubectl /bin/kubectl
 RUN mkdir /root/.kube
 COPY k8s_config /root/.kube/config
 
-
-    
+   
 RUN rm -rf /var/cache/apk/*
 
 WORKDIR /usr/local/bin
